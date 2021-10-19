@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
-
+@RestController
 public class UsersController {
 
     @Autowired
@@ -18,7 +20,7 @@ public class UsersController {
     @GetMapping("/save")
     public ResponseEntity<String> save()
     {
-        User user = User.builder().name("kurdi").email("kurdi@mail").age(22).build();
+        User user = User.builder().id("kurdi").name("kurdi").email("kurdi@mail").age(22).build();
         boolean result = usersService.save(user);
         if (result)
             return ResponseEntity.ok("User Created!");
@@ -26,9 +28,10 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @GetMapping("/save")
+    @GetMapping("/")
     public ResponseEntity<List<User>> get(){
         List<User> users = usersService.getAll();
+
         return ResponseEntity.ok(users);
     }
 }
